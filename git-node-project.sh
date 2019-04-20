@@ -1,9 +1,5 @@
 #!/bin/bash
 
-if [ e- which git ]
-then
-    
-fi
 # git::initial commit
 
 ## docker
