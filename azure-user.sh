@@ -1,27 +1,44 @@
 #!/bin/bash
+#use this to login admin
 
 username=$1
-passcode=$2
-userdisplayname=$3
+az login -u $username 
+
+create()
+{
+userdisplayname=$1
 userprincipalname=$userdisplayname@$domain
 DOMAIN=xavierosierra.onmicrosoft.com
-random=${time}
-usersubscription= $4
-##step1 create user
-az login -u $username
-
-az ad user create \
- --display-name $userdisplayname \
- --user-principal-name $DOMAIN \
- --force-change-password-next-login  -$
-##Step 2- create the user only if not exits
-
+random=Kchall123
+usersubscription= $2
 
 result=$(az ad user list --query [].principalName | grep -E /$userprincipalname/)
 
-if[ -n result ]; then
-     echo Hey that\'s a large number.
-    # create user
-fi
 
-exit 0 
+   
+ ##Step 2- create the user only if user does not exist
+
+    if [ -z result ]; then
+    az ad user create \
+    --display-name $userdisplayname \
+    --user-principal-name $DOMAIN \
+    --force-change-password-next-login \
+    --subscription $usersubscription  
+   else 
+   
+    exit 1
+   fi
+}
+
+assing()
+{
+
+}
+##step1 create user
+
+command=$2
+$command $3 $4
+
+
+
+
