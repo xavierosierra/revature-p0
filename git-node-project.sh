@@ -1,5 +1,6 @@
 #!/bin/bash
-
+if [ -n $(which brew) ] && [ -n $(which git) ]; then
+echo "You have a Development Enviorment!"
 # git::initial commit
 
 ## docker
@@ -42,3 +43,9 @@ touch \
   CHANGELOG.md \
   LICENSE.txt \
   README.md
+
+else
+    echo "You dont have a Development Enviorment! Please Install linux-setup.sh "
+fi
+
+exit 0
