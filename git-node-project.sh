@@ -1,6 +1,12 @@
 #!/bin/bash
-if [ -n $(which brew) ] && [ -n $(which git) ]; then
-echo "You have a Development Enviorment!"
+
+#include: verify req-1 is ready to make the git project repository structure  
+
+
+#verifies the brew and git in order to actually run the rest of the process of creating the Git repositary directories and their files 
+if ! [ -n $(which node) ] && [ -n $(which git) ]; then
+  echo "You have a Development Enviorment!"
+fi
 # git::initial commit
 
 ## docker
@@ -44,8 +50,13 @@ touch \
   git-project/LICENSE.txt \
   git-project/README.md
 
-else
-    echo "You dont have a Development Enviorment! Please Install linux-setup.sh "
-fi
+##convert to git repository
+  
+##git config and git init
 
-exit 0
+#enforce node as a project runtime with the node commands 
+#manages dependencies 
+git init 
+
+npm init 
+
