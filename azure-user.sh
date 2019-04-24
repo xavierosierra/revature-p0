@@ -41,31 +41,49 @@ createUser()
 
  assignRole()
  {   #the command to assing
-      rolechange=$1
-      username=$2
-      userrole=$3
-      if [ -z $rolechange ]; then 
-         echo 'Change the users role' 
-        exit 1
-
-       elif [ -z $username ]; then 
-         echo 'Change the user'
-        exit 1
-
-       elif [ -z $userrole ]; then 
-         echo ''
-        exit 1
-        fi
-
+      username=$1
+      action=$2
+      roleToAssign=$3
+      #Checks for user if it exists 
+      if [ check for existence of current user]; then
+      echo 'this user does not exist'
+      exit 1
+      fi
       
-     az role assignment $action \
+      
+      if [ $roleToAssign != "reader" ] && [ $roleToAssign != "contributor" ]; then
+      echo 'Role does not exist'
+      exit 1
+      #Checks is the action is valid 
+      fi
+      if [ $action!="create" ] && [ $action!="delete" ]; then
+      echo 'Action not valid'
+      exit 1
+      fi
+      # if [ $action == "create" ] && [ user has no role ]
+      # create user
+
+      # elif [ $action == "delete" ] && [ user has role ]
+      # delete user
+
+      # fi
+      
+      
+      #here would be the commands that you use to assign a role to the user
+      az role assignment $action \
       --assignee $username \
-      --role $role
+      --role $role 
+      
  }
 
  delete()
- { #delete
-    az ad user delete --upn-or-object-id $userprincipalname
+ { 
+   #check if the user exist in the list 
+    result=$(az ad user list --query [].userPrincipalName | grep -E $username)
+   	echo 'Check which user to delete'
+   
+    az ad user delete \
+    --upn-or-object-id $userprincipalname
  }
 
 
